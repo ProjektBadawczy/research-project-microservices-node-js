@@ -5,6 +5,6 @@ export const app = express();
 
 app.use('/', route);
 
-app.listen(8001, () => {
+app.listen(80, () => {
     console.log('Server started');
 });
