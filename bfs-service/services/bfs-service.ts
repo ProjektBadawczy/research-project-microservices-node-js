@@ -1,6 +1,6 @@
 import {Service} from "typedi";
-import { GraphForBfs } from "../../common-models/graph-for-bfs";
-import {BfsResult} from "../../common-models/bfs-result";
+import { GraphForBfs } from "../models/graph-for-bfs";
+import {BfsResult} from "../models/bfs-result";
 
 @Service()
 export class BfsService {

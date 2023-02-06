@@ -1,8 +1,8 @@
-import { Graph } from '../../common-models/graph';
-import {BfsResult} from "../../common-models/bfs-result";
+import { Graph } from '../models/graph';
+import {BfsResult} from "../models/bfs-result";
 import {Service} from "typedi";
 import * as _ from "lodash"
-import {GraphForBfs} from "../../common-models/graph-for-bfs";
+import {GraphForBfs} from "../models/graph-for-bfs";
 
 @Service()
 export default class EdmondsKarpService {

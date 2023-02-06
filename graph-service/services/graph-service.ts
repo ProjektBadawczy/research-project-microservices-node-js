@@ -1,8 +1,8 @@
 import { Service } from "typedi";
 import * as fs from "fs";
-import {JsonGraph} from "../../common-models/json-graph";
-import {Graph} from "../../common-models/graph";
-import {DirectedGraph} from "../../common-models/directed-graph";
+import {JsonGraph} from "../models/json-graph";
+import {Graph} from "../models/graph";
+import {DirectedGraph} from "../models/directed-graph";
 
 @Service()
 class GraphService {

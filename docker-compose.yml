@@ -4,22 +4,22 @@ services:
   graph-service:
     container_name: graph-service
     build:
-      context: .
-      dockerfile: graph-service/Dockerfile
+      context: ./graph-service
+      dockerfile: Dockerfile
     ports:
       - 5001:80
   edmonds-karp-service:
     container_name: edmonds-karp-service
     build:
-      context: .
-      dockerfile: edmonds-karp-service/Dockerfile
+      context: ./edmonds-karp-service
+      dockerfile: Dockerfile
     ports:
       - 5002:80
           
   bfs-service:
     container_name: bfs-service
     build:
-      context: .
-      dockerfile: graph-service/Dockerfile
+      context: ./bfs-service
+      dockerfile: Dockerfile
     ports:
       - 5003:80
