@@ -34,7 +34,6 @@ export class BfsService {
                 }
             }
         }
-
         return new BfsResult(parent, visited[graphForBfs.destination]);
     }
 }

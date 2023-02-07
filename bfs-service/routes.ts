@@ -9,5 +9,5 @@ export const route = Router();
 const bfsController = new BfsController(Container.get(BfsService));
 
 
-route.get('/bfs', 
+route.post('/bfs', 
     (req, res) => bfsController.bfs(req, res));

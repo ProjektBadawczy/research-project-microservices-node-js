@@ -8,84 +8,88 @@ import {GraphForBfs} from "../models/graph-for-bfs";
 export default class EdmondsKarpService {
     constructor() {}
 
-    calculateMaxFlow(id: number, source: number, destination: number): number {
-        const graphServiceUrl = `http://graph-service:80/graph?id=${id}`
-        const bfssServiceUrl = `http://bfs-service:80/bfs`
-        let isGraphFetchSuccessful: boolean = false;
-        var graph: Graph = new Graph(0,0, new Array<Array<number>>())
-        fetch(graphServiceUrl)
+    async calculateMaxFlow(id: number, source: number, destination: number): Promise<number> {
+        const graphServiceUrl = `http://localhost:5001/graph?id=${id}`
+        const bfsServiceUrl = `http://localhost:5003/bfs`
+        var isGraphFetchSuccessful: boolean = false;
+        var graphData  = await fetch(graphServiceUrl)
             .then(resp => {
-                if (resp.ok){
+                if (resp.ok) {
                     isGraphFetchSuccessful = true
                     return resp.json()
                 }
             })
-            .then( data => {
-                    graph.id = data.id
-                    graph.numberOfVertices = data.numberOfVertices
-                    graph.adjacencyMatrix = data.adjacencyMatrix
+            .then(data => {
+                return data
             })
             .catch((error) => {
                 console.error('There has been a problem with your fetch operation:', error);
 
             })
+        var graph = new Graph(graphData.id, graphData.numberOfVertices, graphData.adjacencyMatrix)
         
         if (isGraphFetchSuccessful) {
-            var graphForBfs: GraphForBfs = new GraphForBfs(graph.id, 
-                graph.numberOfVertices, 
+            var graphForBfs: GraphForBfs = new GraphForBfs(graph.id,
+                graph.numberOfVertices,
                 graph.adjacencyMatrix, source, destination)
-            var bfsResult: BfsResult = new BfsResult(new Array<number>(), false)
-            fetch(bfssServiceUrl)
+            
+            var bfsResult = await fetch(bfsServiceUrl, {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(graphForBfs)})
                 .then(resp => {
                     return resp.json()
                 })
-                .then( data => {
-                    bfsResult = new BfsResult(data.parents, data.success)
+                .then(data => {
+                    return data
                 })
                 .catch((error) => {
                     console.error('There has been a problem with your fetch operation:', error);
 
                 })
-
+            
             var u, v;
             var residualGraph: GraphForBfs = _.cloneDeep(graphForBfs)
             var maxFlow = 0;
 
-            while (bfsResult.success)
-            {
+            while (bfsResult.success) {
                 var pathFlow: number = Number.MAX_VALUE;
-                for (v = destination; v != source; v = bfsResult.parents[v])
-                {
+                for (v = destination; v != source; v = bfsResult.parents[v]) {
                     u = bfsResult.parents[v];
                     pathFlow = Math.min(pathFlow, residualGraph.adjacencyMatrix[u][v]);
                 }
 
-                for (v = destination; v != source; v = bfsResult.parents[v])
-                {
+                for (v = destination; v != source; v = bfsResult.parents[v]) {
                     u = bfsResult.parents[v];
                     residualGraph.adjacencyMatrix[u][v] -= pathFlow;
                     residualGraph.adjacencyMatrix[v][u] += pathFlow;
                 }
 
                 maxFlow += pathFlow;
-                var data = new FormData();
-                data.append( "json", JSON.stringify( residualGraph ) );
-                fetch(bfssServiceUrl, {method: 'POST', body: data})
+                var newBfsResult = await fetch(bfsServiceUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(residualGraph)})
                     .then(resp => {
                         return resp.json()
                     })
-                    .then( data => {
-                        bfsResult = new BfsResult(data.parents, data.success)
+                    .then(data => {
+                        return data
                     })
                     .catch((error) => {
                         console.error('There has been a problem with your fetch operation:', error);
 
                     })
+                bfsResult = new BfsResult(newBfsResult.parents, newBfsResult.success)
             }
-
             return maxFlow;
-        }
-        else {
+        } else {
             return -1;
         }
     }
