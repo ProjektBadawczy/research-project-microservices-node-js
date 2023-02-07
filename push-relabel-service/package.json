@@ -1,5 +1,5 @@
 {
-  "name": "edmonds-karp-service",
+  "name": "push-relabel-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

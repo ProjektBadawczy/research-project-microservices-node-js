@@ -23,3 +23,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5003:80
+      
+  push-relabel-service:
+    container_name: push-relabel-service
+    build:
+      context: ./push-relabel-service
+      dockerfile: Dockerfile
+    ports:
+      - 5004:80

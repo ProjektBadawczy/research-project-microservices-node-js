@@ -9,8 +9,8 @@ export default class EdmondsKarpService {
     constructor() {}
 
     async calculateMaxFlow(id: number, source: number, destination: number): Promise<number> {
-        const graphServiceUrl = `http://localhost:5001/graph?id=${id}`
-        const bfsServiceUrl = `http://localhost:5003/bfs`
+        const graphServiceUrl = `http://graph-service:80/graph?id=${id}`
+        const bfsServiceUrl = `http://bfs-service:80/bfs`
         var isGraphFetchSuccessful: boolean = false;
         var graphData  = await fetch(graphServiceUrl)
             .then(resp => {
