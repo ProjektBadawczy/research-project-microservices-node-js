@@ -1,33 +1,45 @@
-version: '2'
+version: '3.8'
 
 services:
   graph-service:
-    container_name: graph-service
     build:
       context: ./graph-service
       dockerfile: Dockerfile
-    ports:
-      - 5001:80
+    networks:
+      - microservices-network
+
   edmonds-karp-service:
-    container_name: edmonds-karp-service
     build:
       context: ./edmonds-karp-service
       dockerfile: Dockerfile
-    ports:
-      - 5002:80
+    networks:
+      - microservices-network
           
   bfs-service:
-    container_name: bfs-service
     build:
       context: ./bfs-service
       dockerfile: Dockerfile
-    ports:
-      - 5003:80
+    networks:
+      - microservices-network
       
   push-relabel-service:
-    container_name: push-relabel-service
     build:
       context: ./push-relabel-service
       dockerfile: Dockerfile
+    networks:
+      - microservices-network
+      
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - microservices-network
     ports:
-      - 5004:80
+      - 8001:80
+      
+networks:
+  microservices-network:
+    
+  
