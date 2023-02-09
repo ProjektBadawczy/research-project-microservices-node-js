@@ -9,6 +9,6 @@ app.use(express.json({limit: '50mb'}))
 app.use(express.urlencoded({limit: '50mb', extended: true}))
 app.use('/', route);
 
-app.listen(5002, () => {
+app.listen(80, () => {
     console.log('Server started');
 });

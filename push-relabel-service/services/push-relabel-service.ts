@@ -29,7 +29,7 @@ export class PushRelabelService {
     }
 
     async calculateMaxFlow(id: number, source: number, destination: number): Promise<number> {
-        const graphServiceUrl = `http://graph-service:5001/directedGraph?id=${id}`
+        const graphServiceUrl = `http://graph-service:80/directedGraph?id=${id}`
         var isGraphFetchSuccessful: boolean = false;
         var graphData  = await fetch(graphServiceUrl)
             .then(resp => {
