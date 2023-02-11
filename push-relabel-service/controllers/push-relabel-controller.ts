@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {PushRelabelService} from "../services/push-relabel-service";
+import {hostname} from "os";
 
 class PushRelabelController {
 
@@ -11,6 +12,7 @@ class PushRelabelController {
         const source = Number(_req.query.source);
         const destination = Number(_req.query.destination);
         var maxFlow = await this.pushRelabelService.calculateMaxFlow(id, source, destination)
+        console.log(hostname())
         return res.json(maxFlow)
     }
 }
