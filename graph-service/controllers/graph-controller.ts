@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import GraphService from "../services/graph-service";
 import {StatusCodes} from "http-status-codes";
-import {hostname} from "os";
 
 class GraphController {
 
@@ -14,7 +13,6 @@ class GraphController {
         if (graph == null) {
             res.status(StatusCodes.NOT_FOUND).json([]);
         }
-        console.log(hostname())
         return res.json(graph)
     }
 
@@ -24,7 +22,6 @@ class GraphController {
         if (graph == null) {
             res.status(StatusCodes.NOT_FOUND).json([]);
         }
-        console.log(hostname())
         return res.json(graph)
     }
 }

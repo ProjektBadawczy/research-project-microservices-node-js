@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import EdmondsKarpService from "../services/edmonds-karp-service";
-import {hostname} from "os";
 
 class EdmondsKarpController {
 
@@ -12,7 +11,6 @@ class EdmondsKarpController {
         const source = Number(_req.query.source);
         const destination = Number(_req.query.destination);
         var maxFlow = await this.edmondsKarpService.calculateMaxFlow(id, source, destination)
-        console.log(hostname())
         return res.json(maxFlow)
     }
 }
