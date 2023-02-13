@@ -5,41 +5,28 @@ services:
     build:
       context: ./graph-service
       dockerfile: Dockerfile
-    networks:
-      - microservices-network
 
   edmonds-karp-service:
     build:
       context: ./edmonds-karp-service
       dockerfile: Dockerfile
-    networks:
-      - microservices-network
      
   bfs-service:
     build:
       context: ./bfs-service
       dockerfile: Dockerfile
-    networks:
-      - microservices-network
       
   push-relabel-service:
     build:
       context: ./push-relabel-service
       dockerfile: Dockerfile
-    networks:
-      - microservices-network
       
   nginx:
     image: nginx:latest
     container_name: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - microservices-network
     ports:
       - 8001:80
-      
-networks:
-  microservices-network:
     
   
