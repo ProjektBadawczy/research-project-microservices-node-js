@@ -10,7 +10,7 @@ class GraphService {
     private graphs: JsonGraph[] = [];
 
     constructor() {
-        fs.readFile('./resources/big_dense_set.json', 'utf8',(err, data) => {
+        fs.readFile('./resources/random_set.json', 'utf8',(err, data) => {
             if (err) throw err;
             this.graphs = JSON.parse(data);
         });
