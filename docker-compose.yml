@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.graph-service.rule=Host(`localhost`) && Path(`/graph`)"
+      - "traefik.http.routers.graph-service.rule=Path(`/graph`)"
       - "traefik.http.routers.graph-service.entrypoints=web"
       
   edmonds-karp-service:
@@ -29,7 +29,7 @@ services:
       dockerfile: Dockerfile
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.edmonds-karp-service.rule=Host(`localhost`) && Path(`/edmondsKarpMaxGraphFlow`)"
+      - "traefik.http.routers.edmonds-karp-service.rule=Path(`/edmondsKarpMaxGraphFlow`)"
       - "traefik.http.routers.edmonds-karp-service.entrypoints=web"
      
   bfs-service:
@@ -38,7 +38,7 @@ services:
       dockerfile: Dockerfile
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.bfs-service.rule=Host(`localhost`) && Path(`/bfs`)"
+      - "traefik.http.routers.bfs-service.rule=Path(`/bfs`)"
       - "traefik.http.routers.bfs-service.entrypoints=web"
       
   push-relabel-service:
@@ -47,7 +47,7 @@ services:
       dockerfile: Dockerfile
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.push-relabel-service.rule=Host(`localhost`) && Path(`/pushRelabelMaxGraphFlow`)"
+      - "traefik.http.routers.push-relabel-service.rule=Path(`/pushRelabelMaxGraphFlow`)"
       - "traefik.http.routers.push-relabel-service.entrypoints=web"
     
   
