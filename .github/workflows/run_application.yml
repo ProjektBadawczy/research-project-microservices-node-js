@@ -21,15 +21,6 @@ jobs:
           REMOTE_HOST: ${{ secrets.AWS_APPLICATION_DNS }}
           REMOTE_USER: ec2-user
           TARGET: /home/ec2-user
-          
-      - name: add permissions
-        uses: appleboy/ssh-action@master
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          host: ${{ secrets.AWS_APPLICATION_DNS }}
-          username: ec2-user
-          port: 22 
-          script: chmod -R 777 ./
 
       - name: docker-compose build
         uses: appleboy/ssh-action@master
