@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
       - name: Clean workscape
         uses: AutoModality/action-clean@v1
     
